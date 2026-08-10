@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guilherme Inácio | Advocacia Imobiliária</title>
+<meta name="description" content="Advocacia especializada em Direito Imobiliário. Atendimento em todo o Brasil.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0d0b09; --paper:#131110; --paper2:#191510;
+    --gold:#c9a35f; --gold-light:#e9d19c; --gold-dim:#7d6539;
+    --ivory:#f3eee2; --stone:#a89b86; --stone-dim:#6f6656;
+    --line:rgba(201,163,95,.28); --line-strong:rgba(201,163,95,.55);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{background:var(--bg);color:var(--ivory);font-family:'Inter',sans-serif;line-height:1.65;-webkit-font-smoothing:antialiased;}
+  h1,h2,h3{font-family:'Newsreader',serif;font-weight:500;color:var(--ivory);line-height:1.1;}
+  .mono{font-family:'IBM Plex Mono',monospace;}
+  a{color:inherit;text-decoration:none;}
+  ::selection{background:var(--gold);color:#0d0b09;}
+
+  /* ---- LEFT RAIL ---- */
+  .rail{
+    position:fixed;top:0;left:0;bottom:0;width:84px;
+    border-right:1px solid var(--line);background:var(--paper);
+    display:flex;flex-direction:column;align-items:center;justify-content:flex-start;
+    padding:28px 0;z-index:200;
+  }
+  .rail-mark{width:36px;height:36px;border:1px solid var(--gold);transform:rotate(45deg);display:flex;align-items:center;justify-content:center;margin-bottom:56px;flex-shrink:0;}
+  .rail-mark svg{transform:rotate(-45deg);width:16px;height:16px;stroke:var(--gold);fill:none;stroke-width:1.5;}
+  .rail-nav{display:flex;flex-direction:column;gap:34px;align-items:center;}
+  .rail-nav a{
+    writing-mode:vertical-rl;transform:rotate(180deg);
+    font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--stone-dim);
+    font-family:'IBM Plex Mono',monospace;transition:color .25s;padding:4px 0;
+  }
+  .rail-nav a:hover, .rail-nav a.active{color:var(--gold-light);}
+  .rail-bottom{margin-top:auto;display:flex;flex-direction:column;align-items:center;gap:18px;}
+  .rail-progress{width:1px;height:120px;background:var(--line);position:relative;overflow:hidden;}
+  .rail-progress-fill{position:absolute;top:0;left:0;width:100%;background:var(--gold);height:0%;transition:height .1s linear;}
+  .rail-foot{writing-mode:vertical-rl;transform:rotate(180deg);font-size:9.5px;letter-spacing:.15em;color:var(--stone-dim);font-family:'IBM Plex Mono',monospace;text-transform:uppercase;}
+
+  .content{margin-left:84px;}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 56px;}
+  @media(max-width:640px){.wrap{padding:0 24px;}}
+
+  .kicker{
+    font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--gold);display:flex;align-items:center;gap:12px;margin-bottom:20px;
+  }
+  .kicker::before{content:"§";color:var(--gold-dim);}
+
+  .btn{display:inline-flex;align-items:center;gap:9px;padding:15px 26px;font-size:14px;font-weight:600;letter-spacing:.01em;cursor:pointer;transition:.25s;border:1px solid var(--gold);}
+  .btn-primary{background:var(--gold);color:#0d0b09;}
+  .btn-primary:hover{background:var(--gold-light);border-color:var(--gold-light);}
+  .btn-ghost{background:transparent;color:var(--ivory);border-color:var(--line-strong);}
+  .btn-ghost:hover{border-color:var(--gold);color:var(--gold-light);}
+  .icon{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;}
+
+  .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease;}
+  .reveal.in{opacity:1;transform:none;}
+
+  /* ---- TOP MOBILE BAR ---- */
+  .mobile-bar{display:none;position:fixed;top:0;left:0;right:0;height:64px;background:var(--paper);border-bottom:1px solid var(--line);z-index:150;align-items:center;justify-content:space-between;padding:0 20px;}
+  .mobile-bar .name{font-family:'Newsreader',serif;font-size:16px;}
+
+  /* ---- HERO ---- */
+  .hero{padding:150px 0 100px;position:relative;}
+  .hero-top{display:flex;justify-content:space-between;align-items:flex-start;gap:40px;margin-bottom:50px;}
+  .hero h1{font-size:clamp(38px,5.6vw,68px);letter-spacing:-.015em;max-width:820px;}
+  .hero h1 .line{display:block;}
+  .hero h1 em{font-style:italic;color:var(--gold-light);}
+
+  .hero-photo{position:relative;flex-shrink:0;width:236px;}
+  .photo-frame{
+    width:236px;aspect-ratio:4/5;border:1px solid var(--gold);position:relative;
+    background:linear-gradient(160deg,#191510,#0d0b09);overflow:hidden;
+  }
+  .photo-frame::before,.photo-frame::after{content:"";position:absolute;width:16px;height:16px;border-color:var(--gold);}
+  .photo-frame::before{top:-1px;left:-1px;border-top:2px solid var(--gold);border-left:2px solid var(--gold);}
+  .photo-frame::after{bottom:-1px;right:-1px;border-bottom:2px solid var(--gold);border-right:2px solid var(--gold);}
+  .photo-frame img{width:100%;height:100%;object-fit:cover;object-position:38% 4%;display:block;filter:grayscale(.15) contrast(1.05);}
+
+  .stamp{
+    width:112px;height:112px;border-radius:50%;border:1px solid var(--gold);
+    display:flex;align-items:center;justify-content:center;position:absolute;
+    bottom:-26px;left:-26px;transform:rotate(-8deg);background:var(--bg);z-index:2;
+    box-shadow:0 6px 20px rgba(0,0,0,.5);
+  }
+  .stamp::before{content:"";position:absolute;inset:7px;border:1px dashed var(--gold-dim);border-radius:50%;}
+  .stamp-text{
+    font-family:'IBM Plex Mono',monospace;font-size:7.8px;letter-spacing:.1em;text-transform:uppercase;
+    color:var(--gold-light);text-align:center;line-height:1.5;
+  }
+  .stamp-text .big{display:block;font-family:'Newsreader',serif;font-style:italic;font-size:13px;color:var(--gold-light);margin:2px 0;}
+
+  .hero-lead{font-size:16.5px;color:var(--stone);max-width:520px;margin-bottom:40px;}
+
+  .meta-strip{display:flex;border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-bottom:44px;flex-wrap:wrap;}
+  .meta-cell{flex:1;min-width:140px;padding:18px 24px 18px 0;border-right:1px solid var(--line);}
+  .meta-cell:last-child{border-right:none;}
+  .meta-cell .label{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--stone-dim);margin-bottom:6px;}
+  .meta-cell .val{font-size:14.5px;color:var(--ivory);}
+  .hero-actions{display:flex;gap:14px;flex-wrap:wrap;}
+
+  section{padding:96px 0;border-top:1px solid var(--line);}
+  .sec-head{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;margin-bottom:56px;flex-wrap:wrap;}
+  .sec-head h2{font-size:clamp(26px,3.2vw,38px);max-width:560px;}
+  .sec-num{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--gold-dim);letter-spacing:.1em;}
+
+  /* ---- ABOUT / FICHA ---- */
+  .about-grid{display:grid;grid-template-columns:1fr 1.1fr;gap:64px;}
+  .ficha{border:1px solid var(--line);padding:34px 30px;background:var(--paper);}
+  .ficha-title{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-bottom:22px;display:flex;justify-content:space-between;}
+  .ficha-row{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:11px 0;border-bottom:1px dotted var(--line-strong);font-size:14px;}
+  .ficha-row:last-child{border-bottom:none;}
+  .ficha-row .k{color:var(--stone-dim);font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:.04em;white-space:nowrap;}
+  .ficha-row .v{color:var(--ivory);text-align:right;}
+  .about-copy p{color:var(--stone);font-size:15.5px;margin-bottom:18px;}
+  .about-copy p strong{color:var(--ivory);font-weight:600;}
+
+  /* ---- SERVICES / LIVRO DE PROTOCOLO ---- */
+  .protocol-list{border-top:1px solid var(--line);}
+  .protocol-item{display:grid;grid-template-columns:110px 1fr;gap:28px;padding:30px 0;border-bottom:1px solid var(--line);position:relative;transition:padding-left .3s;}
+  .protocol-item:hover{padding-left:14px;}
+  .protocol-item .idx{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--gold-dim);padding-top:4px;}
+  .protocol-item h3{font-size:19px;font-weight:600;font-family:'Inter',sans-serif;margin-bottom:8px;color:var(--ivory);}
+  .protocol-item p{color:var(--stone);font-size:14.5px;max-width:600px;}
+  .protocol-item .underline{position:absolute;left:0;bottom:-1px;height:1px;width:0;background:var(--gold);transition:width .35s;}
+  .protocol-item:hover .underline{width:100%;}
+
+  /* ---- PROCESS / TICKETS ---- */
+  .ticket-row{display:flex;overflow-x:auto;gap:0;}
+  .ticket{flex:1;min-width:220px;border:1px dashed var(--line-strong);padding:26px 22px;position:relative;}
+  .ticket:not(:last-child){border-right:none;}
+  .ticket .proc{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--gold);letter-spacing:.1em;margin-bottom:14px;}
+  .ticket h3{font-size:17px;margin-bottom:10px;}
+  .ticket p{font-size:13.5px;color:var(--stone);}
+  .ticket::before,.ticket::after{content:"";position:absolute;width:12px;height:12px;background:var(--bg);border-radius:50%;top:50%;transform:translateY(-50%);}
+  .ticket::before{left:-6px;}
+  .ticket::after{right:-6px;}
+  .ticket:first-child::before{display:none;}
+  .ticket:last-child::after{display:none;}
+
+  /* ---- CONTENT / VERBETES ---- */
+
+  /* ---- FAQ MARGINALIA ---- */
+  .faq-row{display:grid;grid-template-columns:220px 1fr;gap:30px;padding:26px 0;border-bottom:1px solid var(--line);cursor:pointer;}
+  .faq-row:first-child{border-top:1px solid var(--line);}
+  .faq-row .qlabel{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-dim);}
+  .faq-row h4{font-size:16.5px;font-weight:500;font-family:'Newsreader',serif;color:var(--ivory);margin-bottom:0;}
+  .faq-ans{max-height:0;overflow:hidden;transition:max-height .35s ease;}
+  .faq-row.open .faq-ans{max-height:200px;margin-top:14px;}
+  .faq-ans p{color:var(--stone);font-size:14px;max-width:560px;}
+
+  /* ---- CONTACT / REQUERIMENTO ---- */
+  .contact-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:64px;}
+  .contact-list{display:flex;flex-direction:column;margin-top:30px;}
+  .c-item{display:flex;justify-content:space-between;padding:16px 0;border-bottom:1px dotted var(--line-strong);font-size:14px;}
+  .c-item .k{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--stone-dim);letter-spacing:.06em;text-transform:uppercase;}
+  .c-item .v{color:var(--ivory);}
+
+  .requerimento{border:1px solid var(--line);padding:36px;background:var(--paper);position:relative;}
+  .requerimento::before,.requerimento::after{content:"";position:absolute;width:16px;height:16px;border-color:var(--gold);}
+  .requerimento::before{top:-1px;left:-1px;border-top:2px solid var(--gold);border-left:2px solid var(--gold);}
+  .requerimento::after{bottom:-1px;right:-1px;border-bottom:2px solid var(--gold);border-right:2px solid var(--gold);}
+  form{display:flex;flex-direction:column;gap:24px;}
+  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
+  label{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--stone-dim);display:block;margin-bottom:8px;}
+  input,textarea,select{
+    width:100%;background:transparent;border:none;border-bottom:1px solid var(--line-strong);color:var(--ivory);
+    padding:6px 2px 10px;font-family:'Inter',sans-serif;font-size:15px;
+  }
+  select option{background:var(--paper);}
+  input:focus,textarea:focus,select:focus{outline:none;border-color:var(--gold);}
+  textarea{resize:vertical;min-height:80px;}
+  .form-note{font-size:12px;color:var(--stone-dim);margin-top:4px;}
+
+  /* ---- FOOTER ---- */
+  footer{padding:50px 0 34px;}
+  .footer-top{display:flex;justify-content:space-between;align-items:flex-start;gap:30px;flex-wrap:wrap;margin-bottom:34px;}
+  footer .name{font-family:'Newsreader',serif;font-size:18px;}
+  footer .social{display:flex;gap:20px;}
+  footer .social a{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--stone);border-bottom:1px solid transparent;}
+  footer .social a:hover{color:var(--gold-light);border-color:var(--gold-light);}
+  .legal-note{font-size:11.5px;color:var(--stone-dim);line-height:1.8;border-top:1px solid var(--line);padding-top:24px;max-width:900px;}
+  .footer-bottom{margin-top:20px;font-size:12px;color:var(--stone-dim);font-family:'IBM Plex Mono',monospace;}
+
+  .whatsapp-float{
+    position:fixed;bottom:24px;right:24px;z-index:199;width:54px;height:54px;background:var(--gold);
+    border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 22px rgba(0,0,0,.4);
+  }
+  .whatsapp-float svg{width:24px;height:24px;}
+
+  @media(max-width:900px){
+    .rail{display:none;}
+    .mobile-bar{display:flex;}
+    .content{margin-left:0;padding-top:64px;}
+    .about-grid,.contact-grid,.hero-top{grid-template-columns:1fr;}
+    .faq-row{grid-template-columns:1fr;gap:10px;}
+    .form-row{grid-template-columns:1fr;}
+    .ticket-row{flex-direction:column;}
+    .ticket:not(:last-child){border-right:1px dashed var(--line-strong);border-bottom:none;}
+    .ticket::before,.ticket::after{display:none;}
+    .hero-top{align-items:flex-start;}
+    .hero-photo{width:150px;margin-top:8px;}
+    .photo-frame{width:150px;}
+    .stamp{width:82px;height:82px;bottom:-18px;left:-18px;transform:rotate(-8deg) scale(1);}
+    .stamp-text{font-size:6.6px;}
+    .stamp-text .big{font-size:11px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="mobile-bar">
+  <a href="#top" class="name">Guilherme Inácio</a>
+  <a href="https://wa.me/5511974440124" target="_blank" class="btn btn-primary" style="padding:9px 16px;font-size:12.5px;">WhatsApp</a>
+</div>
+
+<nav class="rail">
+  <a href="#top" class="rail-mark"><svg viewBox="0 0 24 24"><path d="M12 2v20M6 7h12M4 7l2-4h12l2 4M6 7v10a2 2 0 002 2h8a2 2 0 002-2V7"/></svg></a>
+  <div class="rail-nav">
+    <a href="#sobre">Ficha</a>
+    <a href="#atuacao">Protocolo</a>
+    <a href="blog.html">Blog</a>
+    <a href="#faq">Perguntas</a>
+    <a href="#contato">Contato</a>
+  </div>
+  <div class="rail-bottom">
+    <div class="rail-progress"><div class="rail-progress-fill" id="railFill"></div></div>
+    <span class="rail-foot">OAB/SP · Nacional</span>
+  </div>
+</nav>
+
+<div class="content" id="top">
+
+  <!-- HERO -->
+  <section class="hero" style="border-top:none;">
+    <div class="wrap">
+      <div class="hero-top">
+        <h1>
+          <span class="line">Segurança jurídica</span>
+          <span class="line">para <em>cada matrícula,</em></span>
+          <span class="line">cada contrato.</span>
+        </h1>
+        <div class="hero-photo">
+          <div class="photo-frame">
+            <img src="images/guilherme-inacio.png" alt="Guilherme Inácio, advogado" id="heroPhoto">
+          </div>
+        </div>
+      </div>
+      <p class="hero-lead">Atendimento técnico e humano para quem compra, vende, herda, aluga ou regulariza um imóvel — sem juridiquês, com processo claro do início ao fim.</p>
+
+      <div class="meta-strip">
+        <div class="meta-cell"><div class="label">Área</div><div class="val">Direito Imobiliário</div></div>
+        <div class="meta-cell"><div class="label">Atuação</div><div class="val">Urbano &amp; Rural</div></div>
+        <div class="meta-cell"><div class="label">Abrangência</div><div class="val">Todo o Brasil</div></div>
+        <div class="meta-cell"><div class="label">Registro</div><div class="val">OAB/SP</div></div>
+      </div>
+
+      <div class="hero-actions">
+        <a href="https://wa.me/5511974440124" target="_blank" class="btn btn-primary">
+          <svg class="icon" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
+          Agendar uma conversa
+        </a>
+        <a href="#atuacao" class="btn btn-ghost">Ver protocolo de atuação</a>
+        <a href="blog.html" class="btn btn-ghost">
+          <svg class="icon" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
+          Acesse meu Blog
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOBRE / FICHA -->
+  <section id="sobre">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <h2>Quem cuida do seu caso</h2>
+        <span class="sec-num">FICHA 001 / 2026</span>
+      </div>
+      <div class="about-grid reveal">
+        <div class="ficha">
+          <div class="ficha-title"><span>Ficha do Advogado</span><span>001</span></div>
+          <div class="ficha-row"><span class="k">NOME</span><span class="v">Guilherme Inácio</span></div>
+          <div class="ficha-row"><span class="k">ORIGEM</span><span class="v">Brasília / DF</span></div>
+          <div class="ficha-row"><span class="k">SEDE ATUAL</span><span class="v">Nordeste, há 9 anos</span></div>
+          <div class="ficha-row"><span class="k">FORMAÇÃO</span><span class="v">Direito — João Pessoa/PB</span></div>
+          <div class="ficha-row"><span class="k">PÓS-GRADUAÇÕES</span><span class="v">3, em atualização contínua</span></div>
+          <div class="ficha-row"><span class="k">ATUAÇÃO</span><span class="v">Imóveis urbanos e rurais</span></div>
+          <div class="ficha-row"><span class="k">ABRANGÊNCIA</span><span class="v">Todo o Brasil</span></div>
+        </div>
+        <div class="about-copy">
+          <p>Nasci em Brasília, mas há <strong>9 anos o Nordeste é o meu lar</strong>. Foi em João Pessoa que me formei em Direito e descobri a área que carrego até hoje: o Direito Imobiliário.</p>
+          <p>Já são <strong>três pós-graduações</strong> e atualização constante — porque quem confia o seu patrimônio a um advogado merece segurança jurídica de verdade. A tecnologia ajuda, mas nada substitui atenção, empatia e olhar humano em cada caso.</p>
+          <p>Fora do escritório, sou pai de uma menina de 7 anos — o motivo de eu levar tão a sério o que faço. Meu propósito é simples: <strong>descomplicar o Direito Imobiliário</strong> e ajudar você a proteger o que é seu.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ATUAÇÃO / PROTOCOLO -->
+  <section id="atuacao">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <h2>Livro de protocolo — áreas de atuação</h2>
+        <span class="sec-num">08 REGISTROS</span>
+      </div>
+      <div class="protocol-list reveal" id="protocol-list"></div>
+    </div>
+  </section>
+
+  <!-- PROCESSO / TICKETS -->
+  <section>
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <h2>Como funciona o atendimento</h2>
+        <span class="sec-num">PROC. Nº 2026</span>
+      </div>
+      <div class="ticket-row reveal" id="ticket-row"></div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <h2>Perguntas frequentes</h2>
+        <span class="sec-num">ANOTAÇÕES</span>
+      </div>
+      <div class="reveal" id="faq-list"></div>
+    </div>
+  </section>
+
+  <!-- CONTATO -->
+  <section id="contato">
+    <div class="wrap contact-grid">
+      <div class="reveal">
+        <div class="kicker">Contato</div>
+        <h2 style="margin-bottom:14px;">Vamos abrir o seu processo.</h2>
+        <p style="color:var(--stone);font-size:15px;max-width:400px;">Envie sua dúvida pelo formulário ou fale direto pelo WhatsApp. O primeiro contato é para entender sua situação.</p>
+        <div class="contact-list">
+          <div class="c-item"><span class="k">E-mail</span><span class="v">guilhermeinacio.adv@gmail.com</span></div>
+          <div class="c-item"><span class="k">WhatsApp</span><span class="v">(11) 97444-0124</span></div>
+          <div class="c-item"><span class="k">Horário</span><span class="v">Seg a sex, 8h às 18h</span></div>
+          <div class="c-item"><span class="k">Área</span><span class="v">Todo o Brasil</span></div>
+        </div>
+      </div>
+      <div class="reveal">
+        <div class="requerimento">
+          <form onsubmit="return handleSubmit(event)">
+            <div class="form-row">
+              <div><label for="nome">Nome</label><input type="text" id="nome" required></div>
+              <div><label for="tel">Telefone</label><input type="tel" id="tel" required></div>
+            </div>
+            <div><label for="email">E-mail</label><input type="email" id="email" required></div>
+            <div>
+              <label for="assunto">Assunto</label>
+              <select id="assunto">
+                <option>Compra e venda de imóveis</option>
+                <option>Contratos imobiliários</option>
+                <option>Regularização de imóveis</option>
+                <option>Usucapião</option>
+                <option>Locação / caução</option>
+                <option>Condomínio</option>
+                <option>Leilão de imóveis</option>
+                <option>Outro assunto</option>
+              </select>
+            </div>
+            <div><label for="msg">Mensagem</label><textarea id="msg" required placeholder="Conte um pouco sobre o seu caso..."></textarea></div>
+            <button type="submit" class="btn btn-primary" style="justify-content:center;">Enviar mensagem</button>
+            <p class="form-note">Consulta jurídica sujeita a honorários. O envio deste formulário não constitui relação advogado-cliente.</p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <div class="footer-top">
+        <div>
+          <div class="name">Guilherme Inácio</div>
+          <div class="mono" style="font-size:11px;color:var(--stone-dim);letter-spacing:.08em;margin-top:4px;">ADVOCACIA IMOBILIÁRIA</div>
+        </div>
+        <div class="social">
+          <a href="mailto:guilhermeinacio.adv@gmail.com">E-MAIL</a>
+          <a href="https://wa.me/5511974440124" target="_blank">WHATSAPP</a>
+          <a href="https://instagram.com/guilhermeinacioadvogado" target="_blank">INSTAGRAM</a>
+        </div>
+      </div>
+      <div class="legal-note">
+        Este site tem caráter exclusivamente informativo e não constitui consulta jurídica, publicidade ou promessa de resultado, nos termos do Estatuto da OAB (Lei nº 8.906/94), do Código de Ética e Disciplina da OAB e das normas do Provimento nº 205/2021 do CFOAB. Advogado responsável: Guilherme Inácio, OAB/SP.
+      </div>
+      <div class="footer-bottom">© <span id="year"></span> GUILHERME INÁCIO ADVOCACIA — TODOS OS DIREITOS RESERVADOS</div>
+    </div>
+  </footer>
+</div>
+
+<a href="https://wa.me/5511974440124" target="_blank" class="whatsapp-float" aria-label="WhatsApp">
+  <svg viewBox="0 0 24 24"><path d="M12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.5 1.3 5L2 22l5.2-1.3c1.4.8 3.1 1.3 4.8 1.3 5.5 0 10-4.5 10-10S17.5 2 12 2z" fill="#0d0b09" stroke="none"/><path d="M8.5 8.7c.2-.5.4-.5.6-.5h.5c.2 0 .4 0 .6.4.2.5.7 1.6.7 1.7.1.1.1.3 0 .4-.1.2-.1.3-.3.4-.1.2-.3.3-.4.5-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.1.5.1.6-.1.2-.2.7-.8.9-1 .2-.3.4-.2.6-.1.2.1 1.5.7 1.8.8.3.1.5.2.5.3.1.2.1.9-.2 1.7-.3.8-1.7 1.5-2.3 1.6-.6.1-1.3.1-4.9-1.9-3.6-2.2-4.2-4.5-4.3-4.7-.1-.2-1-1.4-1-2.6 0-1.2.6-1.8.9-2.1z" fill="var(--bg)" stroke="none"/></svg>
+</a>
+
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+
+const services = [
+  {t:'Compra e Venda de Imóveis', d:'Assessoria completa em negociações, da proposta à assinatura da escritura.'},
+  {t:'Contratos Imobiliários', d:'Elaboração e análise de contratos, com atenção às cláusulas que protegem você.'},
+  {t:'Regularização de Imóveis', d:'Regularização administrativa e judicial de imóveis urbanos e rurais.'},
+  {t:'Usucapião', d:'Ações de usucapião extrajudicial e judicial para reconhecimento de propriedade.'},
+  {t:'Due Diligence Imobiliária', d:'Análise prévia detalhada antes de fechar negócio, para reduzir riscos.'},
+  {t:'Locações e Distratos', d:'Contratos de locação, devolução de caução e rescisões contratuais.'},
+  {t:'Incorporação e Loteamento', d:'Suporte jurídico em incorporação, loteamento e parcelamento de solo.'},
+  {t:'Conflitos e Ações Possessórias', d:'Solução de conflitos possessórios, incluindo imissão na posse.'}
+];
+document.getElementById('protocol-list').innerHTML = services.map((s,i) => `
+  <div class="protocol-item">
+    <div class="idx">Nº ${String(i+1).padStart(2,'0')}/08</div>
+    <div><h3>${s.t}</h3><p>${s.d}</p></div>
+    <div class="underline"></div>
+  </div>`).join('');
+
+const steps = [
+  {p:'PROTOCOLO 01', t:'Conversa inicial', d:'Você conta sua situação e eu entendo o contexto do seu caso.'},
+  {p:'PROTOCOLO 02', t:'Análise técnica', d:'Avalio a documentação e defino o caminho jurídico adequado.'},
+  {p:'PROTOCOLO 03', t:'Acompanhamento', d:'Você é informado em cada etapa, com linguagem clara.'}
+];
+document.getElementById('ticket-row').innerHTML = steps.map(s => `
+  <div class="ticket"><div class="proc">${s.p}</div><h3>${s.t}</h3><p>${s.d}</p></div>`).join('');
+
+const faqs = [
+  {q:'Vocês atendem imóveis rurais ou só urbanos?', a:'Atendemos tanto imóveis urbanos quanto rurais, em todo o Brasil.'},
+  {q:'Preciso ir até o escritório para a primeira conversa?', a:'Não necessariamente. O primeiro contato pode ser por WhatsApp ou pelo formulário do site.'},
+  {q:'Quanto custa uma consulta?', a:'Os honorários variam conforme a complexidade do caso, conversado com transparência no início do atendimento.'},
+  {q:'O que é due diligence imobiliária?', a:'É a análise prévia da documentação de um imóvel antes da compra, para identificar riscos e irregularidades.'}
+];
+document.getElementById('faq-list').innerHTML = faqs.map((f,i) => `
+  <div class="faq-row" onclick="this.classList.toggle('open')">
+    <div class="qlabel">Q. ${String(i+1).padStart(2,'0')}</div>
+    <div><h4>${f.q}</h4><div class="faq-ans"><p>${f.a}</p></div></div>
+  </div>`).join('');
+
+function handleSubmit(e){
+  e.preventDefault();
+  const nome = document.getElementById('nome').value;
+  const assunto = document.getElementById('assunto').value;
+  const msg = document.getElementById('msg').value;
+  const text = encodeURIComponent(`Olá, sou ${nome}. Assunto: ${assunto}. ${msg}`);
+  window.open(`https://wa.me/5511974440124?text=${text}`, '_blank');
+  return false;
+}
+
+// scroll progress + reveal
+const fill = document.getElementById('railFill');
+function onScroll(){
+  const h = document.documentElement;
+  const pct = (h.scrollTop) / (h.scrollHeight - h.clientHeight) * 100;
+  if(fill) fill.style.height = Math.min(100,pct) + '%';
+}
+document.addEventListener('scroll', onScroll);
+
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+},{threshold:.15});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+// active rail link on scroll
+const sections = ['sobre','atuacao','faq','contato'].map(id=>document.getElementById(id));
+const railLinks = document.querySelectorAll('.rail-nav a');
+function setActive(){
+  let current = '';
+  sections.forEach(s=>{ if(s && window.scrollY >= s.offsetTop - 200) current = s.id; });
+  railLinks.forEach(a=>{ a.classList.toggle('active', a.getAttribute('href') === '#'+current); });
+}
+document.addEventListener('scroll', setActive);
+</script>
+</body>
+</html>
